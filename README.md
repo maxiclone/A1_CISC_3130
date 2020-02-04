@@ -2,4 +2,4 @@
 
 Data Structures 3130 - Assignment 1
 
-Top Streaming Artist
+Project files are can be found in src folder.
