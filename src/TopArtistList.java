@@ -13,31 +13,30 @@ public class TopArtistList {
 		}
 	}
 	
-	public static TopArtistList insert(TopArtistList list, TopStreamingArtist artist) {				//Method to insert elements into linked list 
+	public void insert( TopStreamingArtist artist) {				//Method to insert elements into linked list 
 		
 		Node newNode = new Node(artist);
 		newNode.next=null;
 		
-		if (list.first==null) {
-			list.first=newNode;
+		if (this.first==null) {				//For an empty list, the newnode becomes the first item
+			this.first=newNode;
 		}
-		else {
-			Node last=list.first;
-			while (last.next!=null) {
+		else {								//Otherwise, travel through the list until the last node is reached
+			Node last=this.first;
+			while (last.next!=null) {		
 				last=last.next;
 			}
-			last.next=newNode;
+			last.next=newNode;				//The new node becomes the last node in the list
 		}
-		return list;
 	}
 	
 	public static void printList(TopArtistList list, PrintWriter outfile) {					//Method to print the linked list
 		
 		Node current = list.first;
 		
-		while (current !=null) {
-			System.out.println(current.artist.nameToString());
+		while (current !=null) {			
 			outfile.println(current.artist.nameToString());
+			
 			current=current.next;
 		}
 	}

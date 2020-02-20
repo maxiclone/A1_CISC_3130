@@ -57,15 +57,15 @@ public class Assignment_1_Main {
 				PrintWriter outfile2 = new PrintWriter("src\\ABCList.txt");													//Prints the list of streaming artists in alphabetical order
 				outfile2.println();
 				outfile2.println("Artist                Songs in Top Streaming List");
-				TopArtistList.printList(list, outfile2);
+				TopArtistList.printList(list, outfile2);																	//Print list method from TopArtistList linkedlist
 				
-				outfile.close();
-				outfile2.close();
+				outfile.close();				//Closes printwriter 1
+				outfile2.close();				//closes printwriter 2
 			}
 			catch (IOException a){
 				System.out.println("Output File Not Found");
 			}
-		input.close();
+		input.close();							//closes scanner
 		}
 		catch (FileNotFoundException f){
 			System.out.println("File Not Found");
@@ -98,6 +98,7 @@ public class Assignment_1_Main {
 		}
 		return newList; 
 	}
+	
 	/*Method sortArtistList
 	 * input:
 	 * 		List of top streamers
@@ -122,33 +123,13 @@ public class Assignment_1_Main {
 				}
 			}
 		}
-		for (int i=0;i<a.size();i++) {
-			TopArtistList.insert(list, a.get(i));	
+		System.out.println(a.toString());
+		
+		for (int i=0;i<a.size();i++) {														//Inserts the sorted array into a linked list
+			list.insert(a.get(i));	
 		}
-		
-		
 		return list;
-	}
-	
-	
-	/*	
-	public static void sortByName(ArrayList<Artist> A) {
-		int n = A.size();		
-		for (int i=1;i<n;i++) {										//Sorting Algorithm used is Selection Sort		
-			int j = i-1;
-			
-			Artist temp = A.get(j);
-			Artist pointer = A.get(i);
-		
-			if (pointer.getName().compareTo(temp.getName())<0) {
-				A.get(i).setArtist(pointer);
-				A.get(j).setArtist(temp);
-				
-			}
-		}
-	}
-	 */	
-		
+	}		
 }
 
 
