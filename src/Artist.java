@@ -67,6 +67,6 @@ class Artist {
 		return url.toString();
 	}	
 	public String toString() {
-		return String.format("%1$s, %2$s, %3$s", pos,song.toString(),name.toString()); //pos+" "+song.toString()+" "+name.toString());
+		return String.format("%6d %-33s %-33s", pos,song.toString(),name.toString()); //pos+" "+song.toString()+" "+name.toString());
 	}
 }

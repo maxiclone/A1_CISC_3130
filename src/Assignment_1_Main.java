@@ -17,13 +17,18 @@ public class Assignment_1_Main {
 			   metatext = input.nextLine();					
 			   
 		ArrayList<TopStreamingArtist> topstream = new ArrayList<TopStreamingArtist>();	
-		
+		System.out.println(String.format("%-8s %-25s %15s", "Rank","Song","Artist"));
 		while(input.hasNext()) {
 			String thisLine = input.nextLine();					//Reading the CSV line into a string
 			String[] line = thisLine.split(",");				//Splitting the string into string array elements
+			String song;										//initializing the string object song
 			
 			int pos = Integer.parseInt(line[0].toString());		//Song position
-			String song = line[1].toString().replace("\"", "");					//Song name
+			
+			if (line[1].toString().replace("\"", "").length()>30) {
+				song = line[1].toString().replace("\"", "").substring(0, 29);
+			}
+			else {song = line[1].toString().replace("\"", "");}					//Song name
 			String artist =  line[2].toString().replace("\"", "");				//Main artist
 			int stream = Integer.parseInt(line[3].toString());	//Stream count
 			String url= line[4].toString();
@@ -35,9 +40,11 @@ public class Assignment_1_Main {
 			System.out.println(newArtist.toString());			//Prints the read inputs to console 
 		}
 			ArrayList<TopStreamingArtist> topStreamL = listTopStreamers(topstream);
-		
+			TopArtistList list = sortArtistList(topStreamL);
+			System.out.println(list.toString());
+			
 			try {
-				PrintWriter outfile = new PrintWriter("src\\TopArtists.txt");												//Prints out the list of top streaming artist with formatting in output file
+				PrintWriter outfile = new PrintWriter("src\\TopArtistsOutput.txt");												//Prints out the list of top streaming artist with formatting in output file
 				
 				outfile.println();
 				outfile.println("Artist                 Songs in Top Streaming List");
@@ -46,19 +53,22 @@ public class Assignment_1_Main {
 					outfile.flush();							
 				}
 				
-				//PrintWriter outfile2 = new PrintWriter("src\\ABCList.txt");													//Prints the list of streaming artists in alphabetical order
+				PrintWriter outfile2 = new PrintWriter("src\\ABCList.txt");													//Prints the list of streaming artists in alphabetical order
+				outfile2.println();
+				outfile2.println("Artist                Songs in Top Streaming List");
+				TopArtistList.printList(list, outfile2);
 				
-				
+				outfile.close();
+				outfile2.close();
 			}
 			catch (IOException a){
 				System.out.println("Output File Not Found");
 			}
-
+		input.close();
 		}
 		catch (FileNotFoundException f){
 			System.out.println("File Not Found");
 		}
-	
 	}	
 	
 	/*Method listTopStreamers
@@ -86,9 +96,41 @@ public class Assignment_1_Main {
 			}																				//Using the counter within the TopStreamingArtist class to account for duplicate appearances and remove them from the list.
 		}
 		return newList; 
-	}	
+	}
+	/*Method sortArtistList
+	 * input:
+	 * 		List of top streamers
+	 * Process:
+	 * 		Sorts the list by Alphabetical Order
+	 * 		Inserts the elements into a linked list
+	 * Output:
+	 * 		Linked list of top streaming artists in abc order
+	 */
+	public static TopArtistList sortArtistList(ArrayList<TopStreamingArtist> a) {
+		TopArtistList list = new TopArtistList();
+		
+		for (int i=0; i<a.size()-1;i++) {													//Uses selection Sort algorithm to sort the input array
+			int index=i;
+			for (int j=i+1;j<a.size();i++) {
+				if (a.get(j).getName().compareTo(a.get(index).getName())>0){
+					index=j;
+					
+				Artist before =a.get(index);
+				a.get(index).setArtist(a.get(i));
+				a.get(i).setArtist(before);					
+				}
+			}
+		}
+		for (int i=0;i<a.size();i++) {
+			TopArtistList.insert(list, a.get(i));	
+		}
 		
 		
+		return list;
+	}
+	
+	
+	/*	
 	public static void sortByName(ArrayList<Artist> A) {
 		int n = A.size();		
 		for (int i=1;i<n;i++) {										//Sorting Algorithm used is Selection Sort		
@@ -104,6 +146,7 @@ public class Assignment_1_Main {
 			}
 		}
 	}
+	 */	
 		
 }
 
