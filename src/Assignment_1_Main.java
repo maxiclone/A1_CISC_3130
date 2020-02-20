@@ -40,8 +40,7 @@ public class Assignment_1_Main {
 			System.out.println(newArtist.toString());			//Prints the read inputs to console 
 		}
 			ArrayList<TopStreamingArtist> topStreamL = listTopStreamers(topstream);
-			TopArtistList list = sortArtistList(topStreamL);
-			System.out.println(list.toString());
+			topStreamL.trimToSize();
 			
 			try {
 				PrintWriter outfile = new PrintWriter("src\\TopArtistsOutput.txt");												//Prints out the list of top streaming artist with formatting in output file
@@ -51,15 +50,25 @@ public class Assignment_1_Main {
 				
 				for (int i =0;i<topStreamL.size();i++) {
 					outfile.println(topStreamL.get(i).nameToString());
-					outfile.flush();							
+					outfile.flush();
 				}
+				outfile.close();				//Closes printwriter 1
+			}
+			catch (IOException a){
+					System.out.println("Output File Not Found");
+			}
+			
+			
+				
+			try {	
+				TopArtistList list = sortArtistList(topStreamL);
 				
 				PrintWriter outfile2 = new PrintWriter("src\\ABCList.txt");													//Prints the list of streaming artists in alphabetical order
 				outfile2.println();
 				outfile2.println("Artist                Songs in Top Streaming List");
+				
 				TopArtistList.printList(list, outfile2);																	//Print list method from TopArtistList linkedlist
 				
-				outfile.close();				//Closes printwriter 1
 				outfile2.close();				//closes printwriter 2
 			}
 			catch (IOException a){
@@ -110,23 +119,16 @@ public class Assignment_1_Main {
 	 */
 	public static TopArtistList sortArtistList(ArrayList<TopStreamingArtist> a) {
 		TopArtistList list = new TopArtistList();
-		
-		for (int i=0; i<a.size()-1;i++) {													//Uses selection Sort algorithm to sort the input array
-			int index=i;
-			for (int j=i+1;j<a.size();i++) {
-				if (a.get(j).getName().compareTo(a.get(index).getName())>0){
-					index=j;
-					
-				Artist before =a.get(index);
-				a.get(index).setArtist(a.get(i));
-				a.get(i).setArtist(before);					
+
+		for (int i=0; i<a.size()-1;i++) {													//Uses bubble Sort algorithm to sort the input array
+			for (int j=i+1;j<a.size();j++) {
+				if (a.get(j).getName().compareTo(a.get(j).getName())>0) {	
+					TopStreamingArtist temp = new TopStreamingArtist(a.get(j));
+					a.get(j).setArtist(a.get(i));
+					a.get(i).setArtist(temp);
 				}
-			}
-		}
-		System.out.println(a.toString());
-		
-		for (int i=0;i<a.size();i++) {														//Inserts the sorted array into a linked list
-			list.insert(a.get(i));	
+			}	
+		TopArtistList.insert(list, a.get(i));
 		}
 		return list;
 	}		

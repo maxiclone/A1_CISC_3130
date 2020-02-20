@@ -13,16 +13,16 @@ public class TopArtistList {
 		}
 	}
 	
-	public void insert( TopStreamingArtist artist) {				//Method to insert elements into linked list 
+	public static void insert( TopArtistList list, TopStreamingArtist artist) {				//Method to insert elements into linked list 
 		
 		Node newNode = new Node(artist);
 		newNode.next=null;
 		
-		if (this.first==null) {				//For an empty list, the newnode becomes the first item
-			this.first=newNode;
+		if (list.first==null) {				//For an empty list, the newnode becomes the first item
+			list.first=newNode;
 		}
 		else {								//Otherwise, travel through the list until the last node is reached
-			Node last=this.first;
+			Node last=list.first;
 			while (last.next!=null) {		
 				last=last.next;
 			}

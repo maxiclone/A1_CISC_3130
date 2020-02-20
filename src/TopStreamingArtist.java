@@ -13,8 +13,18 @@ public class TopStreamingArtist extends Artist{
 		topStreamCount=1;
 		next=null;
 	}
+	public TopStreamingArtist(TopStreamingArtist a) {
+		super.setArtist(a);
+		topStreamCount=a.getStreamCount();
+		next.setArtist(a.getNext());
+	}
 	
 	//Setters
+	public void setArtist(TopStreamingArtist a) {
+		super.setArtist(a);
+		topStreamCount=a.getStreamCount();
+		next.setArtist(a.getNext());
+	}
 	public void setStreamCount(int a) {
 		topStreamCount=a;
 	}
@@ -25,6 +35,9 @@ public class TopStreamingArtist extends Artist{
 	}
 	
 	//Getter
+	public String getName() {
+		return super.getName();
+	}
 	public int getStreamCount() {
 		return topStreamCount;
 	}
@@ -42,6 +55,6 @@ public class TopStreamingArtist extends Artist{
 		return super.toString();
 	}
 	public String nameToString() {
-		return	String.format("%-30s%2d", super.getName().toString(),topStreamCount);
+		return	String.format("%-30s %2d", super.getName().toString(),topStreamCount);
 	}
 }

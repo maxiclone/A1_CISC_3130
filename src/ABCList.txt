@@ -1,5 +1,5 @@
-Artist                 Songs in Top Streaming List
-__________________________________________________
+
+Artist                Songs in Top Streaming List
 Tones and I                     2
 Lil Nas X                       2
 Sam Smith                       1
@@ -74,4 +74,3 @@ Thiaguinho MT                   1
 Maluma                          1
 Sam Feldt                       2
 Meek Mill                       1
-Lauv                            2
