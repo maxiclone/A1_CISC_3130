@@ -37,18 +37,23 @@ public class Assignment_1_Main {
 			ArrayList<TopStreamingArtist> topStreamL = listTopStreamers(topstream);
 		
 			try {
-				PrintWriter outfile = new PrintWriter("src\\output.txt");												//Creates an output file for later
+				PrintWriter outfile = new PrintWriter("src\\TopArtists.txt");												//Prints out the list of top streaming artist with formatting in output file
 				
 				outfile.println();
 				outfile.println("Artist                 Songs in Top Streaming List");
 				for (int i =0;i<topStreamL.size();i++) {
 					outfile.println(topStreamL.get(i).nameToString());
-					outfile.flush();
+					outfile.flush();							
 				}
+				
+				//PrintWriter outfile2 = new PrintWriter("src\\ABCList.txt");													//Prints the list of streaming artists in alphabetical order
+				
+				
 			}
 			catch (IOException a){
 				System.out.println("Output File Not Found");
 			}
+
 		}
 		catch (FileNotFoundException f){
 			System.out.println("File Not Found");
